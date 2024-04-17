@@ -1,5 +1,6 @@
-const { Pool } = require('pg');
-require('dotenv').config();
+import { Pool } from 'pg';
+import dotenv from 'dotenv';
+dotenv.config();
 
 //Pool para base de datos
 const pool = new Pool({
@@ -8,9 +9,10 @@ const pool = new Pool({
     database: process.env.DATABASE_NAME,
     password: process.env.DATABASE_PASSWORD,
     port: process.env.DATABASE_PORT,
-    ssl: {
-        rejectUnauthorized: false // Opciones adicionales para configurar SSL, según sea necesario
-    }
+    ssl: true
+    // ssl: {
+    //     rejectUnauthorized: false // Opciones adicionales para configurar SSL, según sea necesario
+    // }
 });
 
 module.exports = { pool }

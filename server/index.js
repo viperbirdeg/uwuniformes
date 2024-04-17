@@ -1,26 +1,31 @@
-//generic node server using imports
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import dotenv from "dotenv";
-import routes from "./routes/routes.js";
-import morgan from "morgan";
 import cookieParser from "cookie-parser";
-dotenv.config();
+import dotenv from "dotenv";
+import userRoutes from "./routes/users.js";
+const origin = process.env.ORIGIN || 'http://127.0.0.1:5501';
+const PORT = process.env.PORT || 5000;
 
+dotenv.config();
 const app = express();
 
-//Middlewares
-app.use(cors());
-app.use(morgan('dev'));
+app.use(cors({
+  origin: [origin],
+  credentials: true
+}));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-
-
-app.use("/api", routes);
-const PORT = process.env.PORT || 5000;
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', origin);
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
+app.use("/uwuniformes/v1/users", userRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
