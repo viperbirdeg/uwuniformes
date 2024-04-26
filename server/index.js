@@ -6,12 +6,13 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/users.js";
 const origin = process.env.ORIGIN || 'http://127.0.0.1:5501';
+const api = process.env.API || 'http://127.0.0.1:8000';
 const port = 8000;
 
 const app = express();
 
 app.use(cors({
-  origin: [origin],
+  origin: [origin, api],
   credentials: true
 }));
 app.use(express.json());
