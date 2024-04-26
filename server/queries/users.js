@@ -4,9 +4,15 @@ const checkEmailExists =
 const addUser =
   'INSERT INTO "Users_schema"."Users" (usr_username, usr_email, usr_pass) VALUES ($1, $2, $3)';
 
-module.exports = {
+export default {
   getUsers,
   checkEmailExists,
   addUser,
 };
-// Path: server/queries/users.js
+
+// module.exports = {
+//   getUsers,
+//   checkEmailExists,
+//   addUser,
+// };
+// export every variable as default

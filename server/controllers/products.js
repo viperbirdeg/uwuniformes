@@ -44,4 +44,7 @@ const getAllProducts = async (req, res) => {
   }
 };
 
-module.exports = { createProduct, getAllProducts };
+export default {
+  createProduct,
+  getAllProducts
+};

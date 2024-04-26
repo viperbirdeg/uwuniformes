@@ -1,13 +1,13 @@
 import express from "express";
+import dotenv from "dotenv";
+dotenv.config();
 import bodyParser from "body-parser";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import dotenv from "dotenv";
 import userRoutes from "./routes/users.js";
 const origin = process.env.ORIGIN || 'http://127.0.0.1:5501';
-const PORT = process.env.PORT || 5000;
+const port = process.env.DATABASE_PORT || 5000;
 
-dotenv.config();
 const app = express();
 
 app.use(cors({
@@ -27,6 +27,6 @@ app.use((req, res, next) => {
 });
 app.use("/uwuniformes/v1/users", userRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });

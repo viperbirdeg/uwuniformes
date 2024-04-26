@@ -5,4 +5,8 @@ const getAllProducts = 'SELECT * FROM public."Productos_vw';
 
 const getOneProduct = 'SELECT * FROM public."Productos_vw WHERE id = $1';
 
-module.exports = { createProduct };
+export default { 
+  createProduct,
+  getAllProducts,
+  getOneProduct
+};
