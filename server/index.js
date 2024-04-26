@@ -6,7 +6,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/users.js";
 const origin = process.env.ORIGIN || 'http://127.0.0.1:5501';
-const port = process.env.DATABASE_PORT || 5000;
+const port = 8000;
 
 const app = express();
 
