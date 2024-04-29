@@ -51,7 +51,7 @@ const getAllProducts = async (req, res) => {
   const client = await pool.connect();
   try {
     const response = await client.query(queries.getAllProducts);
-    return response.status(200).json(response.rows);
+    return res.status(200).json(response.rows);
   } catch (error) {
     res.status(500).json({ error: error.message });
   } finally {
