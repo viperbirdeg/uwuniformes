@@ -1,12 +1,16 @@
 document.getElementById('Jimmynoveash').addEventListener('submit', async function (event) {
     event.preventDefault(); // Prevent the default form submission
-
+    
     const registerAPI = 'https://uwuniformes-lhpc.onrender.com/uwuniformes/v1/users/add';
 
+    alert('fetching...' + registerAPI);
+
     const body = {
-        name: document.getElementById('wf-sign-up-name').value,
-        email: document.getElementById('wf-sign-up-email').value,
-        password: document.getElementById('wf-sign-up-password').value
+        usu_nombre: document.getElementById('wf-sign-up-name').value,
+        usu_email: document.getElementById('wf-sign-up-email').value,
+        usu_pass: document.getElementById('wf-sign-up-password').value,
+        usu_direccion: document.getElementById('direccion').value,
+        usu_telefono: document.getElementById('telefono').value
     };
 
     try {
@@ -22,9 +26,12 @@ document.getElementById('Jimmynoveash').addEventListener('submit', async functio
             throw new Error('Error submitting form'); // Throw error if response is not ok
         }
 
-        // Handle success
-        console.log('Form submitted successfully');
-        // You can add any further actions here
+        Swal.fire({
+            title: "Éxito!",
+            text: "Usuario registrado correctamente.",
+            icon: "success"
+        });
+
     } catch (error) {
         console.error('Error submitting form:', error.message);
         // Handle error, show message to the user, etc.
