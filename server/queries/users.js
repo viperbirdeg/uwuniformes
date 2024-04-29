@@ -1,8 +1,8 @@
-const getUsers = 'SELECT * FROM public."Usuario"';
+const getUsers = "SELECT t.* FROM public.usuarios t";
 const checkEmailExists =
-  'SELECT s FROM public."Usuario" s WHERE s.correo = $1';
+  "SELECT t.* FROM public.usuarios t WHERE t.usu_email = $1";
 const addUser =
-  'INSERT INTO public."Usuario" (nombre, correo, password) VALUES ($1, $2, $3)';
+  "INSERT INTO public.usuarios (usu_nombre, usu_email, usu_pass, usu_direccion, usu_telefono) VALUES ($1, $2, $3, $4, $5)";
 
 export default {
   getUsers,

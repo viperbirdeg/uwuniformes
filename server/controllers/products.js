@@ -1,36 +1,50 @@
 import pool from "../database.js";
 import queries from "../queries/products.js";
+import multer from "multer";
+
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 const createProduct = async (req, res) => {
-  try {
-    const nombre = req.body.nombre;
-    const descripcion = req.body.descripcion;
-    const precio = req.body.precio;
-    const stock = req.body.stock;
-    const categoria = req.body.categoria;
-    const disponibilidad = req.body.disponibilidad;
-    const color = req.body.color;
-    const talla = req.body.talla;
-    const tela = req.body.tela;
-    const genero = req.body.genero;
+  upload.single("pro_imagen")(req, res, async (err) => {
+    if (err) {
+      return res.status(400).json({ error: err.message });
+    }
+
+    const {
+      pro_nombre,
+      pro_descripcion,
+      pro_precio,
+      pro_stock,
+      pro_color,
+      pro_tela,
+      pro_talla,
+      pro_genero,
+    } = req.body;
+
+    const pro_imagen = req.file ? req.file.buffer : null;
 
     const client = await pool.connect();
-    const response = await client.query(queries.createProduct, [
-      descripcion,
-      precio,
-      stock,
-      nombre,
-      disponibilidad,
-      color,
-      talla,
-      tela,
-      genero,
-    ]);
-    res.status(200).json(response.rows);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-  finnal;
+    try {
+      const response = await client.query(queries.createProduct, [
+        pro_nombre,
+        pro_descripcion,
+        pro_precio,
+        pro_stock,
+        pro_color,
+        pro_tela,
+        pro_talla,
+        pro_genero,
+        pro_imagen,
+      ]);
+      res.status(200).json({ message: "Product added successfully!" });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    } finally {
+      client.release();
+    }
+  });
 };
 
 const getAllProducts = async (req, res) => {
@@ -46,5 +60,5 @@ const getAllProducts = async (req, res) => {
 
 export default {
   createProduct,
-  getAllProducts
+  getAllProducts,
 };
